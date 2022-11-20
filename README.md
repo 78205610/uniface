@@ -14,3 +14,5 @@ UniFaceEngine是对各种人脸算法的抽象，UniFaceEngineFactory则是UniFa
 2. 提高效率。主要体现在图片处理方面，java用Image系列类定义和处理图片，android则用Bitmap和YUMImage，而人脸识别算法一般都需要直接处理RGB数据，用opencv识别人脸是Mat，用tensorflow又换成了TensorBufffer，频繁进行格式转换，效率损失比想象的高得多。例如：tensorflow lite跑facenet模型提取人脸特征，在meta30pro上30ms左右就可以完成，但是如果在Bitmap图上做完旋转、抠图再提取RGBA格式的像素数据再转成BGR数据，这个过程的耗时可以超过50ms，因此自定义了简单的图像类，便于直接基于RGB数据进行缩放、旋转、裁剪等操作，一来只需进行一次格式转换，二来针对单一数据格式实现的算法实测比android或java图形库的大算法也要快那么一丢丢。
 
 uniface.util包内基于UniFaceEngine接口实现了一些常用人脸识别通用逻辑，包括：对UniFaceEngine进行池化处理的工厂类（解决多线程安全调用问题）、并发识别、并发人脸特征比对、并发人脸特征搜索和一个微型的人脸识别服务。
+
+说明内容还在持续整理中...
