@@ -97,6 +97,18 @@ public class UniPolygon implements UniGeometry {
 		this.points.add(new UniPoint(rect.x + rect.width - 1, rect.y + rect.height - 1));
 		this.points.add(new UniPoint(rect.x, rect.y + rect.height - 1));
 	}
+	public UniPolygon clone() {
+		return new UniPolygon(this.points);
+	}
+	public UniPolygon translate(int xd, int yd) {
+		if (this.points != null && this.points.size() > 0) {
+			Iterator<UniPoint> it = this.points.iterator();
+			while (it.hasNext()) {
+				UniPoint.translate(it.next(), xd, yd);
+			}
+		}
+		return this;
+	}
 	public UniRect asRect() {
 		return UniPolygon.asRect(this);
 	}

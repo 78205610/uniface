@@ -11,6 +11,8 @@ public class UniYUVImage extends UniImage {
 	private static final long serialVersionUID = 1955916483431586374L;
 
 	public static class YUVType extends PixelType {
+		private static final long serialVersionUID = 6140423631913044403L;
+		
 		public final boolean uv; // uv分量排列顺序，true表示uv，false表示vu
 		public final int bits; // 平均每像素数据的位宽，有效值为12、16、32
 		public final int pn; // 平面数Planar Number，有效值为1、2、3
@@ -58,6 +60,29 @@ public class UniYUVImage extends UniImage {
 			this.ry = ry; this.ru = ru; this.rv = rv; this.rc = rc;
 			this.gy = gy; this.gu = gu; this.gv = gv; this.gc = gc;
 			this.by = by; this.bu = bu; this.bv = bv; this.bc = bc;
+		}
+		public boolean equals(YUVType type) {
+			if (this.pn != type.pn || this.yhm != type.yhm || this.yvm != type.yvm)
+				return false;
+			if (this.ys != type.ys || this.uvs != type.uvs)
+				return false;
+			if (this.uv != type.uv)
+				return false;
+			if (this.ysi != type.ysi || this.usi != type.usi || this.vsi != type.vsi)
+				return false;
+			if (this.yr != type.yr || this.yg != type.yg || this.yb != type.yb || this.yc != type.yc)
+				return false;
+			if (this.ur != type.ur || this.ug != type.ug || this.ub != type.ub || this.uc != type.uc)
+				return false;
+			if (this.vr != type.vr || this.vg != type.vg || this.vb != type.vb || this.vc != type.vc)
+				return false;
+			if (this.ry != type.ry || this.ru != type.ru || this.rv != type.rv || this.rc != type.rc)
+				return false;
+			if (this.gy != type.gy || this.gu != type.gu || this.gv != type.gv || this.gc != type.gc)
+				return false;
+			if (this.by != type.by || this.bu != type.bu || this.bv != type.bv || this.bc != type.bc)
+				return false;
+			return super.equals(type);
 		}
 	}
 	// RGB->full range YUV转换计算整数常量

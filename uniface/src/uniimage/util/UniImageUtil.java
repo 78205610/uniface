@@ -18,6 +18,45 @@ import uniimage.UniYUVImage;
 import uniimage.UniYUVImage.YUVType;
 
 public class UniImageUtil {
+	public static boolean mirror(UniRGBImage srcImage, UniRGBImage mirrorImage, boolean horizontal, boolean vertical) {
+		if ((horizontal || vertical) && srcImage.getWidth() == mirrorImage.getWidth() && srcImage.getHeight() == mirrorImage.getHeight() && srcImage.getType().equals(mirrorImage.getType())) {
+			int w = srcImage.getWidth();
+			int wc = w / 2;
+			int h = srcImage.getHeight();
+			int hc = h / 2;
+			int c = srcImage.getType().bits / 8;
+			int lbs = w * c;
+			int lbsc = lbs / 2;
+			byte[] p1 = new byte[c];
+			byte[] p2 = new byte[c];
+			byte[] sd = srcImage.getImageData();
+			int si = 0;
+			byte[] dd = mirrorImage.getImageData();
+			int di = 0;
+			if (!vertical) {
+				// 仅水平镜像
+				for (int y = 0; y < h; y++) {
+					for (int x = 0; x < lbsc; x += c) {
+						// p1为前点，p2为p1镜像点
+						for (int i = 0; i < c; i++) {
+							int l = si + x + i;
+							int r = si + (lbs - x - c) + i;
+							p1[i] = sd[si + x + i];
+							p2[i] = sd[si + (lbs - x - c) + i];
+						}
+						for (int i = 0; i < c; i++) {
+							dd[di + x + i] = p2[i];
+							dd[di + (lbs - x - c) + i] = p1[i];
+						}
+					}
+					si += lbs;
+					di += lbs;
+				}
+			}
+			return true;
+		}
+		return false;
+	}
     /**
      * 计算两个浮点向量之间的欧式距离
      * 两个浮点数组的长度必须一致

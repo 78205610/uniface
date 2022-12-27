@@ -11,6 +11,7 @@ public class UniRGBImage extends UniImage {
 	private static final long serialVersionUID = 3545049258516935169L;
 	
 	public static class RGBType extends PixelType {
+		private static final long serialVersionUID = -208411032996400732L;
 		public final int ri;
 		public final int gi;
 		public final int bi;
@@ -21,6 +22,12 @@ public class UniRGBImage extends UniImage {
 			this.gi = gi;
 			this.bi = bi;
 			this.ai = ai;
+		}
+		public boolean equals(RGBType type) {
+			if (this.ri != type.ri || this.gi != type.gi || this.bi != type.bi || this.ai != type.ai) {
+				return false;
+			}
+			return super.equals(type);
 		}
 	}
 	public final static RGBType RGB = new RGBType(24, 0, 1, 2, -1);

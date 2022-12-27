@@ -11,10 +11,14 @@ import java.io.Serializable;
  */
 public abstract class UniImage implements Serializable {
 	private static final long serialVersionUID = -8032488429334385802L;
-	public static class PixelType {
+	public static class PixelType implements Serializable {
+		private static final long serialVersionUID = -6379022329775805181L;
 		public final int bits;
 		public PixelType(int bits) {
 			this.bits = bits;
+		}
+		public boolean equals(PixelType type) {
+			return this.bits == type.bits;
 		}
 	};
 	

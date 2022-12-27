@@ -74,4 +74,7 @@ public class UniRect extends UniSize {
 		}
 		return true;
 	}
+	public boolean in(UniRect rect) {
+		return this.in(rect.x, rect.y, rect.x + rect.width - 1, rect.y + rect.height - 1);
+	}
 }
